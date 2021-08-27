@@ -36,14 +36,21 @@ class Neural_Network(object):
         self.W2 = np.random.randn(self.hiddenLayerSize_1, \
                                     self.outputLayerSize)
 
-    def forward(self, X, p):
+    def forward(self, X, *p):
         #build topology
-        W1 = p[0:6].reshape((self.inputLayerSize, \
-                                self.hiddenLayerSize_1))
-        b1 = p[6:9].reshape((self.hiddenLayerSize_1,))
-        W2 = p[9:12].reshape((self.hiddenLayerSize_1, \
-                                    self.outputLayerSize))
-        b2 = p[12:13].reshape((self.outputLayerSize,))
+        if len(p)==0:
+            W1 = self.W1
+            b1 = self.b1
+            W2 = self.W2
+            b2 = self.b1
+        else:
+            p = np.array(p).reshape((self.NDim,1))
+            W1 = p[0:6].reshape((self.inputLayerSize, \
+                                    self.hiddenLayerSize_1))
+            b1 = p[6:9].reshape((self.hiddenLayerSize_1,))
+            W2 = p[9:12].reshape((self.hiddenLayerSize_1, \
+                                        self.outputLayerSize))
+            b2 = p[12:13].reshape((self.outputLayerSize,))
 
         #propagate the inputs through network
         self.z2 = np.dot(X, W1) + b1
@@ -75,11 +82,11 @@ class Neural_Network(object):
         #initalize parameters for qdpso        
         NParticle = 25
         MaxIters = 100
-        NDim = 13
-        bounds = [(-1, 1) for i in range(0, NDim)]
+        self.NDim = 13
+        bounds = [(-1, 1) for i in range(0, self.NDim)]
         g = 0.96
 
-        s = QDPSO(self.f, NParticle, NDim, bounds, MaxIters, g)
+        s = QDPSO(self.f, NParticle, self.NDim, bounds, MaxIters, g)
         s.update(callback=self.log, interval=1)
         #print("Found best position: {0}".format(s.gbest))
 
@@ -91,7 +98,13 @@ nn = Neural_Network()
 #loss = nn.predict_forward(X, y)
 #print(loss)
 
+y_p1 = nn.forward(X)
+cost_p1 = mean_squared_error(y, y_p1)
+
+print("Prediction: ", y_p1)
+print("Pediction Cost: ", cost_p1)
+
 y_p, cost_p = nn.train(X, y)
 
-print("Prediction: ", y_p)
+print("Prediction with QDPSO: ", y_p)
 print("Pediction Cost: ", cost_p)
