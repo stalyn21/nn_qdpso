@@ -1,0 +1,9 @@
+#hidden directories
+.ipynb_checkṕoints/
+.vscode/
+
+#extra directory
+__pycache__/
+
+#directory
+qpso/
