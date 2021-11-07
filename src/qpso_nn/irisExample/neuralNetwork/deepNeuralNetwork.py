@@ -50,12 +50,18 @@ class neuralNetwork(object):
         self.b1 = np.random.randn(self.n_hidden, )
         self.b2 = np.random.randn(self.n_outputs, )
     
-    def forward(self, X, p):
-        p = np.array(p).reshape((self.d, 1))
-        W1 = p[0:80].reshape((self.n_inputs, self.n_hidden))
-        b1 = p[80:100].reshape((self.n_hidden, ))
-        W2 = p[100:160].reshape((self.n_hidden, self.n_outputs))
-        b2 = p[160:163].reshape((self.n_outputs, ))
+    def forward(self, X, *p):
+        if (len(p)==0):
+            W1 = self.W1
+            b1 = self.b1
+            W2 = self.W2
+            b2 = self.b2
+        else:
+            p = np.array(p).reshape((self.d, 1))
+            W1 = p[0:80].reshape((self.n_inputs, self.n_hidden))
+            b1 = p[80:100].reshape((self.n_hidden, ))
+            W2 = p[100:160].reshape((self.n_hidden, self.n_outputs))
+            b2 = p[160:163].reshape((self.n_outputs, ))
 
         z1 = np.dot(X, W1) + b1
         a1 = np.tanh(z1)
@@ -71,7 +77,6 @@ class neuralNetwork(object):
 
     def f(self, x):
         j = self.backware(x)
-        self.metric_loss.append(j)
         return j
 
     def predict(self, X, p_best):
@@ -83,18 +88,19 @@ class neuralNetwork(object):
         z1 = np.dot(X, W1) + b1
         a1 = np.tanh(z1)
         z2 = np.dot(a1, W2) + b2
-
-        y_pred = np.argmax(z2, axis=1)
-
+        a2 = self.af.softmax(z2)
+        y_pred = np.argmax(a2, axis=1)
+        #y_pred = np.argmax(z2, axis=1)
         return y_pred
     
     def log(self, s):
         best_value = [p.best_value for p in s.particles()]
         best_value_avg = np.mean(best_value)
         best_value_std = np.std(best_value)
+        self.metric_loss.append(s.gbest_value)
         print("{0: >5}  {1: >9.3E}  {2: >9.3E}  {3: >9.3E}".format(s.iters, s.gbest_value, best_value_avg, best_value_std))
 
-    def train(self, X, y):
+    def train(self, X, y, beta):
         self.X = X
         self.y = y
 
@@ -102,11 +108,11 @@ class neuralNetwork(object):
         NParticle = 25
         MaxIters = 1000
         self.d = (self.n_inputs * self.n_hidden) + (self.n_hidden * self.n_outputs) + self.n_hidden + self.n_outputs
-        bounds = [(-2, 2) for i in range(0, self.d)]
-        g = 1.7 #.96
+        bounds = [(-1, 1) for i in range(0, self.d)]
+        g = beta #1.7 #.96
 
         s = QDPSO(self.f, NParticle, self.d, bounds, MaxIters, g)
-        s.update(callback=self.log, interval=10)
+        s.update(callback=self.log, interval=1)
 
         y_pred = self.predict(X, s.gbest)
 

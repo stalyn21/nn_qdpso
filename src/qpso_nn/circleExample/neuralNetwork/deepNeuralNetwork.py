@@ -37,7 +37,7 @@ class neuralNetwork(object):
     def __init__(self):
         # initialize parameters
         self.n_inputs = 2
-        self.n_hidden = 20
+        self.n_hidden = 10
         self.n_outputs = 2
         self.n_sample = 400
         self.af = activationFunction()
@@ -50,12 +50,18 @@ class neuralNetwork(object):
         self.b1 = np.random.randn(self.n_hidden, )
         self.b2 = np.random.randn(self.n_outputs, )
     
-    def forward(self, X, p):
-        p = np.array(p).reshape((self.d, 1))
-        W1 = p[0:40].reshape((self.n_inputs, self.n_hidden))
-        b1 = p[40:60].reshape((self.n_hidden, ))
-        W2 = p[60:100].reshape((self.n_hidden, self.n_outputs))
-        b2 = p[100:102].reshape((self.n_outputs, ))
+    def forward(self, X, *p):
+        if (len(p)==0):
+            W1 = self.W1
+            b1 = self.b1
+            W2 = self.W2
+            b2 = self.b2
+        else:
+            p = np.array(p).reshape((self.d, 1))
+            W1 = p[0:20].reshape((self.n_inputs, self.n_hidden))
+            b1 = p[20:30].reshape((self.n_hidden, ))
+            W2 = p[30:50].reshape((self.n_hidden, self.n_outputs))
+            b2 = p[50:52].reshape((self.n_outputs, ))
 
         z1 = np.dot(X, W1) + b1
         a1 = np.tanh(z1)
@@ -74,17 +80,17 @@ class neuralNetwork(object):
         return j
 
     def predict(self, X, p_best):
-        W1 = p_best[0:40].reshape((self.n_inputs, self.n_hidden))
-        b1 = p_best[40:60].reshape((self.n_hidden, ))
-        W2 = p_best[60:100].reshape((self.n_hidden, self.n_outputs))
-        b2 = p_best[100:102].reshape((self.n_outputs, ))
+        W1 = p_best[0:20].reshape((self.n_inputs, self.n_hidden))
+        b1 = p_best[20:30].reshape((self.n_hidden, ))
+        W2 = p_best[30:50].reshape((self.n_hidden, self.n_outputs))
+        b2 = p_best[50:52].reshape((self.n_outputs, ))
 
         z1 = np.dot(X, W1) + b1
         a1 = np.tanh(z1)
         z2 = np.dot(a1, W2) + b2
-
-        y_pred = np.argmax(z2, axis=1)
-
+        a2 = self.af.softmax(z2)
+        y_pred = np.argmax(a2, axis=1)
+        #y_pred = np.argmax(z2, axis=1)
         return y_pred
     
     def log(self, s):
