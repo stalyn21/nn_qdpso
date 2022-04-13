@@ -99,7 +99,11 @@ max_iter = 1000
 gBest = nn.train(X_train, y_train, beta, n_particulas, max_iter)
 print('best value', gBest)
 
-np.save('gBest_113_25_1000_1_30.npy', gBest)
+# Save global best value
+# The file name is 'gBest/bValue_beta_nParticles_maxIter_imgHEIGHTximgWIDTH_rgbChannel.npy'
+np.save("gBest_113_25_1000_30x30_1.npy", gBest)
+# Save best value during the trainning 
+np.save("bValue_113_25_1000_30x30_1.npy", nn.metric_loss)
 
 y_pred = np.argmax(nn.forward(X_train, gBest), axis=1)
 cost_pred1 = mean_squared_error(y_train, y_pred)

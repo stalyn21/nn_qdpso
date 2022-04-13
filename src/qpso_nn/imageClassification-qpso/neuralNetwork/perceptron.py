@@ -158,6 +158,6 @@ class perceptron(object):
         s = QDPSO(self.f, NParticle, self.d, bounds, MaxIters, g)
         s.update(callback=self.log, interval=1)
 
-        np.save('bValue_113_25_100_1_30.npy', np.array(self.metric_loss))
+        self.metric_loss = np.array(self.metric_loss)
         
         return s.gbest
