@@ -22,6 +22,9 @@ If you have problem with the scikit-learn package, use this command:
 ```
 $ pip install -U scikit-learn
 ```
+## Repository Structure
+This repository has benchmark, feature reduction, increasing classes and samples, and images classification results. Moreover, it has the heatmaps of bechmark and images classification. Finally, we use the circle, iris, wine, breast canser, and Multi-class Waether datasets for this project. 
+
 
 ## PSO algorithm
 The PSO algorithm was proposed in 1995 by Kennedy and Eberhart. This is a metaheuristic algorithm that is based on animal behavior. In this case, The flock of birds inspires PSO. Moreover, this algorithm finds global minimum or maximum. Thus, the PSO algorithm is focus on optimization problems.
