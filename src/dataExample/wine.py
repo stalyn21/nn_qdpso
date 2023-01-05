@@ -1,9 +1,9 @@
 # Import modules
 import numpy as np
-from sklearn.datasets import load_iris
+from sklearn.datasets import load_wine
 
 # Load the iris dataset
-data = load_iris()
+data = load_wine()
 
 # Store the features as X and the labels as y
 X = data.data
