@@ -13,12 +13,13 @@ The project idea is to train a neural network with a quantum-inspired algorithm.
 - Joblib
 - Pickle
 - Seaborn
+- Mahotas
 
 To install the requirements execute the [req](https://github.com/stalyn21/nn_qdpso/blob/main/req.txt) file or execute the following command:
 ```
 $ pip install -r req.txt
 ```
-If you have problem with the scikit-learn package, use this command:
+Installing the scikit-learn package with this command:
 ```
 $ pip install -U scikit-learn
 ```
