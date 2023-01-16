@@ -20,7 +20,7 @@ from neuralNetwork.perceptron_qpso import perceptron
 #----------------
 #Global variables
 #----------------
-root_path = './dataset/'
+root_path = './dataset2/'
 
 # Dataset classes: 
 data_clases = np.array(['cloudy', 
