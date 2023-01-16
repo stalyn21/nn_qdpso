@@ -21,7 +21,7 @@ $ pip install -r req.txt
 ```
 Installing the scikit-learn package with this command:
 ```
-$ pip install -U scikit-learn
+$ pip install -U scikit-learn==1.0
 ```
 ## Repository Structure
 This repository has benchmark, feature reduction, increasing classes and samples, and images classification results. Moreover, it has the heatmaps of bechmark and images classification. Finally, we use the circle, iris, wine, breast canser, and Multi-class Waether datasets for this project. 
