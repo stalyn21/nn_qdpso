@@ -1,4 +1,4 @@
-# Trainning a neural network with QPSO
+# Training an artificial neural network with QPSO
 The project idea is to train a neural network with a quantum-inspired algorithm. In this case, we will use the QPSO (Quantum-behaved Particle Swarm Optimization), which is an improved version of the PSO (Particle swarm optimization). Besides putting it to the test with an application in the field of Artificial Intelligence.
 
 ## Requirements
@@ -45,6 +45,20 @@ There are several variations of this algorithm to optimize a function with one o
 To run the algorithm use the [Multi-class Weather dataset](https://www.kaggle.com/datasets/somesh24/multiclass-images-for-weather-classification), the [src/main.py](https://github.com/stalyn21/nn_qdpso/blob/main/src/main.py) file and execute the following command: 
 ```
 $ python3 main.py
+```
+
+<b> Note: </b> If you have the following output during the execution, use the following command:
+```
+OUTPUT:
+Traceback (most recent call last):
+  File "/home/nn_qdpso-main/src/main.py", line 6, in <module>
+    import cv2
+  File "/usr/local/lib/python3.10/dist-packages/cv2/__init__.py", line 8, in <module>
+    from .cv2 import *
+ImportError: libGL.so.1: cannot open shared object file: No such file or directory
+
+COMMAND
+$ sudo apt install -y python3-opencv
 ```
 
 In the [main](https://github.com/stalyn21/nn_qdpso/blob/main/src/main.py) file, you can change the images size, alfa or beta value, the particles number, the max iterations and another parameters, see below.
