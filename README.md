@@ -69,4 +69,5 @@ IMG_WIDTH = 150
 beta = 1.13
 ```
 
+<b>Note:</b> If you have a problem loading the dataset, remove the rain141 and shine 131 images or resize the image pixels to 128x128.
 
