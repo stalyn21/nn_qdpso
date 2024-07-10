@@ -1,4 +1,4 @@
-# Training ANN with QPSO using one swarm
+# Training ANN with QPSO using One Swarm
 
 ## Requirements
 - GNU/Linux (Kali Linux in this case)

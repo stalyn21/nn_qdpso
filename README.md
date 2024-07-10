@@ -4,7 +4,7 @@ The project idea is to train a neural network with a quantum-inspired algorithm.
 ## Repository Structure
 This repository has:
 - [Training ANN using one swarm.](./src/one_swarm_mlp/one_swarm_mlp.md)
-- Training ANN using multi-swarm.
+- [Training ANN using multi-swarm.](./src/multi-swarm_mlp/multi-swarm_mlp.md)
 
 ## PSO algorithm
 The PSO algorithm was proposed in 1995 by Kennedy and Eberhart. This is a metaheuristic algorithm that is based on animal behavior. In this case, The flock of birds inspires PSO. Moreover, this algorithm finds global minimum or maximum. Thus, the PSO algorithm is focus on optimization problems.
